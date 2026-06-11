@@ -129,6 +129,8 @@
     /* ===== ABOUT ===== */
     .about-grid { display: grid; grid-template-columns: 300px 1fr; gap: 4rem; max-width: 1000px; margin: 0 auto; align-items: center; }
     .avatar { width: 250px; height: 250px; border-radius: 20px; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 4rem; font-weight: 800; color: white; margin: 0 auto; animation: avatar-float 6s ease-in-out infinite; }
+    .about-photo { width: 100%; max-width: 400px; height: auto; border-radius: 20px; object-fit: cover; object-position: center; display: block; margin: 0 auto; box-shadow: 0 8px 30px rgba(108,99,255,0.2); border: 2px solid var(--border); transition: transform 0.3s, box-shadow 0.3s; }
+    .about-photo:hover { transform: scale(1.02); box-shadow: 0 12px 40px rgba(108,99,255,0.3); }
     @keyframes avatar-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
     .about-text h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
     .about-text p { color: var(--text-muted); margin-bottom: 1rem; font-size: 1rem; }
@@ -402,7 +404,7 @@
         .hero { padding: 5rem 1rem 3rem; } .hero h1 { font-size: 2.2rem; } .hero p { font-size: 1rem; } .typing-container { font-size: 1rem; }
         .stats { gap: 2rem; flex-wrap: wrap; } .stat-number { font-size: 1.6rem; }
         .hero-buttons { flex-direction: column; align-items: center; } .btn-primary, .btn-secondary { width: 100%; max-width: 280px; text-align: center; }
-        .about-grid { grid-template-columns: 1fr; gap: 2rem; text-align: center; } .avatar { width: 180px; height: 180px; font-size: 3rem; } .about-tags { justify-content: center; }
+        .about-grid { grid-template-columns: 1fr; gap: 2rem; text-align: center; } .avatar { width: 180px; height: 180px; font-size: 3rem; } .about-photo { max-width: 300px; } .about-tags { justify-content: center; }
         .skills-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; } .skill-card { padding: 1.2rem; } .skill-card h3 { font-size: 0.95rem; } .skill-card p { font-size: 0.8rem; }
         .dashboard-section { padding: 1.5rem; border-radius: 14px; } .dashboard-metrics { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; } .metric-card { padding: 0.8rem; } .metric-card .value { font-size: 1.3rem; } .metric-card .label { font-size: 0.65rem; } .chart-area { height: 140px; }
         .campaign-table thead { display: none; } .campaign-table tbody tr { display: block; margin-bottom: 1rem; padding: 1rem; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; }
@@ -500,7 +502,9 @@
     <section id="about">
         <div class="section-header fade-in"><h2>About <span class="gradient">Me</span></h2><p>A passionate digital marketer &amp; developer from Bangladesh</p></div>
         <div class="about-grid">
-            <div class="about-image fade-in"><div class="avatar"><span>WS</span></div></div>
+            <div class="about-image fade-in">
+                <img src="https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/about-photo.jpg" alt="Wali Ullah Shuvo" class="about-photo" loading="lazy">
+            </div>
             <div class="about-text fade-in">
                 <h3>Building digital experiences that convert</h3>
                 <p>I'm Shuvo, a Digital Marketing Specialist and Full-Stack Developer based in Dhaka, Bangladesh. I work at <strong>AppluxIT Ltd</strong> and help businesses rank #1 on Google through strategic advertising and data-driven marketing campaigns.</p>
