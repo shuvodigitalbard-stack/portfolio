@@ -911,11 +911,12 @@
                 <div class="contact-item"><div class="icon">&#127760;</div><div><div class="label">Website</div><div class="value"><a href="https://waliullahshuvo.me" target="_blank">waliullahshuvo.me</a></div></div></div>
             </div>
             <div class="contact-form fade-in">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <input type="text" placeholder="Subject">
-                <textarea placeholder="Tell me about your project..."></textarea>
-                <button type="submit" class="btn-primary" style="border:none;cursor:pointer;">Send Message</button>
+                <input type="text" id="contactName" placeholder="Your Name" required>
+                <input type="email" id="contactEmail" placeholder="Your Email" required>
+                <input type="text" id="contactSubject" placeholder="Subject">
+                <textarea id="contactMessage" placeholder="Tell me about your project..."></textarea>
+                <button type="submit" class="btn-primary" style="border:none;cursor:pointer;" id="contactSubmit">Send Message</button>
+                <div id="formStatus" style="display:none;margin-top:0.5rem;font-size:0.85rem;"></div>
             </div>
         </div>
     </section>
@@ -1728,9 +1729,59 @@
         });
 
         // ===== FORM =====
+        // ===== CONTACT FORM → FORMSPREE =====
         document.querySelector('.contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Thanks for reaching out! Please email me directly at shuvo.digitalbard@gmail.com');
+            var name = document.getElementById('contactName').value.trim();
+            var email = document.getElementById('contactEmail').value.trim();
+            var subject = document.getElementById('contactSubject').value.trim();
+            var message = document.getElementById('contactMessage').value.trim();
+            var status = document.getElementById('formStatus');
+            var btn = document.getElementById('contactSubmit');
+
+            if (!name || !email || !message) {
+                status.style.display = 'block';
+                status.style.color = '#ff6b6b';
+                status.textContent = 'Please fill in all required fields.';
+                return;
+            }
+
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+            status.style.display = 'block';
+            status.style.color = '#00d4aa';
+            status.textContent = 'Sending your message...';
+
+            var formData = new FormData();
+            formData.append('name', name);
+            formData.append('email', email);
+            formData.append('subject', subject || 'Portfolio Contact');
+            formData.append('message', message);
+
+            fetch('https://formspree.io/f/xpwzgkby', {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            }).then(function(res) {
+                if (res.ok) {
+                    status.style.color = '#00d4aa';
+                    status.textContent = '✅ Message sent successfully! I\'ll get back to you soon.';
+                    document.getElementById('contactName').value = '';
+                    document.getElementById('contactEmail').value = '';
+                    document.getElementById('contactSubject').value = '';
+                    document.getElementById('contactMessage').value = '';
+                } else {
+                    throw new Error('Formspree error');
+                }
+            })
+            .catch(function() {
+                status.style.color = '#ff6b6b';
+                status.textContent = '❌ Failed to send. Please email me directly at shuvo.digitalbard@gmail.com';
+            })
+            .finally(function() {
+                btn.textContent = 'Send Message';
+                btn.disabled = false;
+            });
         });
     </script>
 </body>
