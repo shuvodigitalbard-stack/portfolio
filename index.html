@@ -33,6 +33,72 @@
     /* ===== CURSOR GLOW ===== */
     .cursor-glow { position: fixed; width: 300px; height: 300px; border-radius: 50%; pointer-events: none; z-index: 0; background: radial-gradient(circle, rgba(108,99,255,0.08) 0%, transparent 70%); transform: translate(-50%, -50%); }
 
+    /* ===== CURSOR PARTICLE TRAIL ===== */
+    .cursor-particle {
+        position: fixed;
+        pointer-events: none;
+        z-index: 9998;
+        border-radius: 50%;
+        mix-blend-mode: screen;
+        animation: particle-fade 0.8s ease-out forwards;
+    }
+    @keyframes particle-fade {
+        0% { opacity: 1; transform: scale(1); }
+        100% { opacity: 0; transform: scale(0); }
+    }
+
+    /* ===== RIPPLE EFFECT ===== */
+    .ripple {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(108,99,255,0.3);
+        transform: scale(0);
+        animation: ripple-effect 0.6s ease-out;
+        pointer-events: none;
+    }
+    @keyframes ripple-effect {
+        to { transform: scale(4); opacity: 0; }
+    }
+
+    /* ===== GLOW CARD EFFECT ===== */
+    .glow-card {
+        position: relative;
+        overflow: hidden;
+    }
+    .glow-card::before {
+        content: '';
+        position: absolute;
+        top: -50%; left: -50%; width: 200%; height: 200%;
+        background: radial-gradient(circle, rgba(108,99,255,0.1) 0%, transparent 70%);
+        opacity: 0; transition: opacity 0.3s; pointer-events: none;
+    }
+    .glow-card:hover::before { opacity: 1; }
+
+    /* ===== FLOATING ANIMATION ===== */
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    .float-anim { animation: float 3s ease-in-out infinite; }
+
+    /* ===== PULSE RING ===== */
+    @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 1; } 100% { transform: scale(2); opacity: 0; } }
+    .pulse-ring::after {
+        content: ''; position: absolute; top: 50%; left: 50%; width: 100%; height: 100%;
+        border: 2px solid var(--primary); border-radius: 50%;
+        transform: translate(-50%, -50%); animation: pulse-ring 2s ease-out infinite;
+    }
+
+    /* ===== GRADIENT BORDER ANIMATION ===== */
+    .gradient-border { position: relative; border-radius: 16px; overflow: hidden; }
+    .gradient-border::before {
+        content: ''; position: absolute; inset: -2px;
+        background: conic-gradient(from 0deg, var(--primary), var(--accent), var(--primary));
+        border-radius: 18px; animation: gradient-rotate 4s linear infinite; z-index: -1;
+    }
+    .gradient-border::after {
+        content: ''; position: absolute; inset: 2px;
+        background: var(--bg2); border-radius: 14px; z-index: -1;
+    }
+    @keyframes gradient-rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
     /* ===== 3D BACKGROUND ===== */
     .bg-grid { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(rgba(108,99,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(108,99,255,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
     .glow-orb { position: fixed; border-radius: 50%; filter: blur(120px); opacity: 0.15; pointer-events: none; z-index: 0; }
@@ -519,13 +585,13 @@
     <!-- ===== SKILLS ===== -->
     <section id="skills">
         <div class="section-header fade-in"><h2>My <span class="gradient">Skills</span></h2><p>Technologies and tools I work with daily</p></div>
-        <div class="skills-grid">
-            <div class="skill-card fade-in"><div class="skill-icon" style="background:rgba(108,99,255,0.1);">&#128202;</div><h3>Google Ads &amp; PPC</h3><p>Campaign setup, optimization, conversion tracking, and ROI maximization for all ad formats.</p></div>
-            <div class="skill-card fade-in"><div class="skill-icon" style="background:rgba(0,212,170,0.1);">&#9883;</div><h3>React &amp; Next.js</h3><p>Building modern, responsive web applications with React, Next.js, and TypeScript.</p></div>
-            <div class="skill-card fade-in"><div class="skill-icon" style="background:rgba(255,107,107,0.1);">&#128994;</div><h3>Node.js &amp; Express</h3><p>RESTful APIs, microservices, and backend systems with Node.js and Express framework.</p></div>
-            <div class="skill-card fade-in"><div class="skill-icon" style="background:rgba(255,193,7,0.1);">&#128241;</div><h3>Flutter &amp; Mobile</h3><p>Cross-platform mobile app development with Flutter and Dart for iOS and Android.</p></div>
-            <div class="skill-card fade-in"><div class="skill-icon" style="background:rgba(0,150,255,0.1);">&#128269;</div><h3>SEO &amp; Analytics</h3><p>Search engine optimization, Google Analytics, and data-driven marketing strategies.</p></div>
-            <div class="skill-card fade-in"><div class="skill-icon" style="background:rgba(200,100,255,0.1);">&#128737;</div><h3>OSINT &amp; Security</h3><p>Open-source intelligence, cybersecurity analysis, and digital footprint investigation.</p></div>
+        <div class="skills-grid stagger-parent">
+            <div class="skill-card fade-in stagger-item tilt-hover"><div class="skill-icon" style="background:rgba(108,99,255,0.1);">&#128202;</div><h3>Google Ads &amp; PPC</h3><p>Campaign setup, optimization, conversion tracking, and ROI maximization for all ad formats.</p></div>
+            <div class="skill-card fade-in stagger-item tilt-hover"><div class="skill-icon" style="background:rgba(0,212,170,0.1);">&#9883;</div><h3>React &amp; Next.js</h3><p>Building modern, responsive web applications with React, Next.js, and TypeScript.</p></div>
+            <div class="skill-card fade-in stagger-item tilt-hover"><div class="skill-icon" style="background:rgba(255,107,107,0.1);">&#128994;</div><h3>Node.js &amp; Express</h3><p>RESTful APIs, microservices, and backend systems with Node.js and Express framework.</p></div>
+            <div class="skill-card fade-in stagger-item tilt-hover"><div class="skill-icon" style="background:rgba(255,193,7,0.1);">&#128241;</div><h3>Flutter &amp; Mobile</h3><p>Cross-platform mobile app development with Flutter and Dart for iOS and Android.</p></div>
+            <div class="skill-card fade-in stagger-item tilt-hover"><div class="skill-icon" style="background:rgba(0,150,255,0.1);">&#128269;</div><h3>SEO &amp; Analytics</h3><p>Search engine optimization, Google Analytics, and data-driven marketing strategies.</p></div>
+            <div class="skill-card fade-in stagger-item tilt-hover"><div class="skill-icon" style="background:rgba(200,100,255,0.1);">&#128737;</div><h3>OSINT &amp; Security</h3><p>Open-source intelligence, cybersecurity analysis, and digital footprint investigation.</p></div>
         </div>
         <div class="skill-progress-container fade-in">
             <div class="skill-progress-item"><div class="skill-progress-header"><span class="skill-progress-name">Google Ads &amp; PPC</span><span class="skill-progress-pct">95%</span></div><div class="skill-progress-bar"><div class="skill-progress-fill" data-width="95"></div></div></div>
@@ -1023,6 +1089,79 @@
         }, { threshold: 0.3 });
         const skillProgressContainer = document.querySelector('.skill-progress-container');
         if (skillProgressContainer) progressObserver.observe(skillProgressContainer);
+
+        // ===== CURSOR PARTICLE TRAIL =====
+        let particleThrottle = 0;
+        document.addEventListener('mousemove', function(e) {
+            var now = Date.now();
+            if (now - particleThrottle < 30) return; // throttle to every 30ms
+            particleThrottle = now;
+
+            var colors = ['#6c63ff', '#00d4aa', '#8b83ff', '#00ff41', '#ff6b6b'];
+            var particle = document.createElement('div');
+            particle.className = 'cursor-particle';
+            var size = Math.random() * 6 + 2;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = e.clientX + 'px';
+            particle.style.top = e.clientY + 'px';
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.boxShadow = '0 0 ' + (size * 2) + 'px ' + particle.style.background;
+            document.body.appendChild(particle);
+            setTimeout(function() { particle.remove(); }, 800);
+        });
+
+        // ===== RIPPLE EFFECT ON BUTTONS =====
+        document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                var ripple = document.createElement('span');
+                ripple.className = 'ripple';
+                var rect = btn.getBoundingClientRect();
+                var size = Math.max(rect.width, rect.height);
+                ripple.style.width = size + 'px';
+                ripple.style.height = size + 'px';
+                ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+                ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+                btn.style.position = 'relative';
+                btn.style.overflow = 'hidden';
+                btn.appendChild(ripple);
+                setTimeout(function() { ripple.remove(); }, 600);
+            });
+        });
+
+        // ===== STAGGERED REVEAL ON SCROLL =====
+        var staggerObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    var items = entry.target.querySelectorAll('.stagger-item');
+                    items.forEach(function(item, i) {
+                        setTimeout(function() {
+                            item.classList.add('visible');
+                        }, i * 100);
+                    });
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.stagger-parent').forEach(function(el) {
+            staggerObserver.observe(el);
+        });
+
+        // ===== TILT HOVER EFFECT =====
+        document.querySelectorAll('.tilt-hover').forEach(function(el) {
+            el.addEventListener('mousemove', function(e) {
+                var rect = el.getBoundingClientRect();
+                var x = (e.clientX - rect.left) / rect.width - 0.5;
+                var y = (e.clientY - rect.top) / rect.height - 0.5;
+                el.style.transform = 'perspective(1000px) rotateX(' + (-y * 10) + 'deg) rotateY(' + (x * 10) + 'deg) scale(1.02)';
+            });
+            el.addEventListener('mouseleave', function() {
+                el.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+            });
+        });
+
+        // ===== DYNAMIC YEAR IN FOOTER =====
+        var yearEl = document.getElementById('footerYear');
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
 
         // ===== SMOOTH SCROLL =====
         document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
