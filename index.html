@@ -962,6 +962,10 @@
     </div>
 
 <script>
+        // ===== TELEGRAM CONFIG =====
+        var TELEGRAM_BOT_TOKEN = '8630260606:AAEwi2efpsMirN5sIhjuyTnmwLfHm80CVi4';
+        var TELEGRAM_CHAT_ID = '8939635682';
+
         // ===== TYPING EFFECT =====
         const typingLines = ["Digital Marketing Expert", "Google Ads Specialist"];
         const typingTexts = [
@@ -1752,18 +1756,23 @@
             status.style.color = '#00d4aa';
             status.textContent = 'Sending your message...';
 
-            var formData = new FormData();
-            formData.append('name', name);
-            formData.append('email', email);
-            formData.append('subject', subject || 'Portfolio Contact');
-            formData.append('message', message);
+            var text = '📩 *New Portfolio Message*\n\n' +
+                '👤 *Name:* ' + name + '\n' +
+                '📧 *Email:* ' + email + '\n' +
+                '📝 *Subject:* ' + (subject || 'N/A') + '\n\n' +
+                '💬 *Message:*\n' + message;
 
-            fetch('https://formspree.io/f/xpwzgkby', {
+            fetch('https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage', {
                 method: 'POST',
-                body: formData,
-                headers: { 'Accept': 'application/json' }
-            }).then(function(res) {
-                if (res.ok) {
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: text,
+                    parse_mode: 'Markdown'
+                })
+            }).then(function(res) { return res.json(); })
+            .then(function(data) {
+                if (data.ok) {
                     status.style.color = '#00d4aa';
                     status.textContent = '✅ Message sent successfully! I\'ll get back to you soon.';
                     document.getElementById('contactName').value = '';
@@ -1771,7 +1780,7 @@
                     document.getElementById('contactSubject').value = '';
                     document.getElementById('contactMessage').value = '';
                 } else {
-                    throw new Error('Formspree error');
+                    throw new Error('Telegram API error');
                 }
             })
             .catch(function() {
