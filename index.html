@@ -206,6 +206,66 @@
     .slider-dot.active { background: var(--primary); transform: scale(1.3); box-shadow: 0 0 10px var(--primary); }
     .slider-counter { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
 
+    /* Click to expand hint */
+    .click-expand-hint {
+        position: absolute; bottom: 8px; right: 12px; z-index: 5;
+        background: rgba(0,0,0,0.6); color: rgba(255,255,255,0.8);
+        padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.7rem;
+        display: flex; align-items: center; gap: 0.3rem;
+        backdrop-filter: blur(4px); pointer-events: none;
+        opacity: 0; transition: opacity 0.3s;
+    }
+    .project-image-3d:hover .click-expand-hint { opacity: 1; }
+
+    /* ===== LIGHTBOX / EXPANDED CARD ===== */
+    .lightbox-overlay {
+        display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+        z-index: 9999; background: rgba(0,0,0,0.92); backdrop-filter: blur(10px);
+        align-items: center; justify-content: center;
+    }
+    .lightbox-overlay.active { display: flex; }
+    .lightbox-close {
+        position: fixed; top: 20px; right: 24px; z-index: 10001;
+        width: 44px; height: 44px; border-radius: 50%;
+        background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+        color: white; cursor: pointer; font-size: 1.3rem;
+        display: flex; align-items: center; justify-content: center;
+        transition: all 0.3s;
+    }
+    .lightbox-close:hover { background: rgba(255,107,107,0.3); border-color: #ff6b6b; transform: rotate(90deg); }
+    .lightbox-content {
+        display: flex; max-width: 1200px; width: 95%; max-height: 90vh;
+        background: var(--bg2); border: 1px solid var(--border); border-radius: 20px;
+        overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+        animation: lightbox-in 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    @keyframes lightbox-in { from { opacity: 0; transform: scale(0.9) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+    .lightbox-image-side {
+        flex: 1.4; min-width: 0; background: #000; position: relative;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .lightbox-image-side img { width: 100%; height: 100%; object-fit: contain; max-height: 90vh; }
+    .lightbox-info-side {
+        flex: 1; min-width: 320px; padding: 2.5rem; overflow-y: auto;
+        display: flex; flex-direction: column; justify-content: center;
+    }
+    .lightbox-info-side .project-type-badge { margin-bottom: 1rem; }
+    .lightbox-info-side h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.3; }
+    .lightbox-info-side p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.5rem; }
+    .lightbox-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1.5rem; }
+    .lightbox-metric { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem; text-align: center; }
+    .lightbox-metric .label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.3rem; }
+    .lightbox-metric .value { font-size: 1.2rem; font-weight: 800; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .lightbox-links { display: flex; flex-direction: column; gap: 0.6rem; }
+    .lightbox-links a { color: var(--primary-light); text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: color 0.3s; }
+    .lightbox-links a:hover { color: var(--accent); }
+    @media (max-width: 768px) {
+        .lightbox-content { flex-direction: column; max-height: 85vh; }
+        .lightbox-image-side { flex: none; max-height: 40vh; }
+        .lightbox-info-side { padding: 1.5rem; min-width: 0; }
+        .lightbox-info-side h2 { font-size: 1.2rem; }
+    }
+
     /* ===== DASHBOARD ===== */
     .dashboard-section { background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; padding: 3rem; max-width: 1100px; margin: 0 auto; }
     .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
@@ -484,9 +544,10 @@
                 <!-- Slide 1: Dental Service Search -->
                 <div class="slider-card-3d">
                     <div class="project-card-3d">
-                        <div class="project-image-3d">
+                        <div class="project-image-3d clickable-image" data-lightbox="0">
                             <img src="https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/dental-service-search.jpg" alt="Dental Service Search Campaign" loading="lazy">
                             <div class="screenshot-overlay"></div>
+                            <div class="click-expand-hint">&#128269; Click to expand</div>
                         </div>
                         <div class="project-info-3d">
                             <span class="project-type-badge badge-google-ads">Google Ads — Search</span>
@@ -505,9 +566,10 @@
                 <!-- Slide 2: Hort Properties Multi-Campaign -->
                 <div class="slider-card-3d">
                     <div class="project-card-3d">
-                        <div class="project-image-3d">
+                        <div class="project-image-3d clickable-image" data-lightbox="1">
                             <img src="https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/hort-properties.jpg" alt="Hort Properties Multi-Campaign" loading="lazy">
                             <div class="screenshot-overlay"></div>
+                            <div class="click-expand-hint">&#128269; Click to expand</div>
                         </div>
                         <div class="project-info-3d">
                             <span class="project-type-badge badge-google-ads">Google Ads — Multi-Campaign</span>
@@ -526,9 +588,10 @@
                 <!-- Slide 3: Emergency Dentist -->
                 <div class="slider-card-3d">
                     <div class="project-card-3d">
-                        <div class="project-image-3d">
+                        <div class="project-image-3d clickable-image" data-lightbox="2">
                             <img src="https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/emergency-dentist.jpg" alt="Emergency Dentist Search Campaign" loading="lazy">
                             <div class="screenshot-overlay"></div>
+                            <div class="click-expand-hint">&#128269; Click to expand</div>
                         </div>
                         <div class="project-info-3d">
                             <span class="project-type-badge badge-google-ads">Google Ads — Search</span>
@@ -547,9 +610,10 @@
                 <!-- Slide 4: Katy Lakes Dentistry P-Max -->
                 <div class="slider-card-3d">
                     <div class="project-card-3d">
-                        <div class="project-image-3d">
+                        <div class="project-image-3d clickable-image" data-lightbox="3">
                             <img src="https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/katy-lakes-pmax.jpg" alt="Katy Lakes Dentistry Performance Max" loading="lazy">
                             <div class="screenshot-overlay"></div>
+                            <div class="click-expand-hint">&#128269; Click to expand</div>
                         </div>
                         <div class="project-info-3d">
                             <span class="project-type-badge badge-google-ads">Google Ads — Performance Max</span>
@@ -568,9 +632,10 @@
                 <!-- Slide 5: Dental Implants -->
                 <div class="slider-card-3d">
                     <div class="project-card-3d">
-                        <div class="project-image-3d">
+                        <div class="project-image-3d clickable-image" data-lightbox="4">
                             <img src="https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/dental-implants.jpg" alt="Dental Implants Search Campaign" loading="lazy">
                             <div class="screenshot-overlay"></div>
+                            <div class="click-expand-hint">&#128269; Click to expand</div>
                         </div>
                         <div class="project-info-3d">
                             <span class="project-type-badge badge-google-ads">Google Ads — Search</span>
@@ -589,9 +654,10 @@
                 <!-- Slide 6: General & Family Dentist -->
                 <div class="slider-card-3d">
                     <div class="project-card-3d">
-                        <div class="project-image-3d">
+                        <div class="project-image-3d clickable-image" data-lightbox="5">
                             <img src="https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/general-dentist-2.jpg" alt="General & Family Dentist Search" loading="lazy">
                             <div class="screenshot-overlay"></div>
+                            <div class="click-expand-hint">&#128269; Click to expand</div>
                         </div>
                         <div class="project-info-3d">
                             <span class="project-type-badge badge-google-ads">Google Ads — Search</span>
@@ -610,9 +676,10 @@
                 <!-- Slide 7: Dental Implants Extended -->
                 <div class="slider-card-3d">
                     <div class="project-card-3d">
-                        <div class="project-image-3d">
+                        <div class="project-image-3d clickable-image" data-lightbox="6">
                             <img src="https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/dental-implants-2.jpg" alt="Dental Implants Extended View" loading="lazy">
                             <div class="screenshot-overlay"></div>
+                            <div class="click-expand-hint">&#128269; Click to expand</div>
                         </div>
                         <div class="project-info-3d">
                             <span class="project-type-badge badge-google-ads">Google Ads — Search</span>
@@ -631,9 +698,10 @@
                 <!-- Slide 8: Molen Tax -->
                 <div class="slider-card-3d">
                     <div class="project-card-3d">
-                        <div class="project-image-3d">
+                        <div class="project-image-3d clickable-image" data-lightbox="7">
                             <img src="https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/molen-tax.jpg" alt="Molen Tax Search Campaign" loading="lazy">
                             <div class="screenshot-overlay"></div>
+                            <div class="click-expand-hint">&#128269; Click to expand</div>
                         </div>
                         <div class="project-info-3d">
                             <span class="project-type-badge badge-google-ads">Google Ads — Search</span>
@@ -652,9 +720,10 @@
                 <!-- Slide 9: Account-Level Management -->
                 <div class="slider-card-3d">
                     <div class="project-card-3d">
-                        <div class="project-image-3d">
+                        <div class="project-image-3d clickable-image" data-lightbox="8">
                             <img src="https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/account-overview.jpg" alt="Account-Level Management" loading="lazy">
                             <div class="screenshot-overlay"></div>
+                            <div class="click-expand-hint">&#128269; Click to expand</div>
                         </div>
                         <div class="project-info-3d">
                             <span class="project-type-badge badge-google-ads">Google Ads — Account Mgmt</span>
@@ -858,6 +927,23 @@
         </div>
         <p>&copy; 2026 Wali Ullah Shuvo. Built with &#10084;&#65039; in Bangladesh.</p>
     </footer>
+
+    <!-- ===== PROJECT LIGHTBOX ===== -->
+    <div class="lightbox-overlay" id="projectLightbox">
+        <button class="lightbox-close" id="lightboxClose">&#10005;</button>
+        <div class="lightbox-content">
+            <div class="lightbox-image-side">
+                <img id="lightboxImage" src="" alt="Project Screenshot">
+            </div>
+            <div class="lightbox-info-side">
+                <span class="project-type-badge" id="lightboxBadge">Google Ads</span>
+                <h2 id="lightboxTitle">Project Title</h2>
+                <p id="lightboxDesc">Project description goes here.</p>
+                <div class="lightbox-metrics" id="lightboxMetrics"></div>
+                <div class="lightbox-links" id="lightboxLinks"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- ===== TERMINAL OVERLAY ===== -->
     <div class="terminal-overlay" id="terminalOverlay">
@@ -1093,6 +1179,250 @@
 
         // Initialize slider
         updateSlider();
+
+        // ===== PROJECT LIGHTBOX =====
+        const lightboxData = [
+            {
+                image: 'https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/dental-service-search.jpg',
+                badge: 'Google Ads — Search',
+                badgeClass: 'badge-google-ads',
+                title: 'Dental Service — Search Campaign',
+                desc: 'High-performing Search campaign with exceptional 14.43% CTR and 1,260 conversions. $80/day budget with 100% optimization score. 90.8% of clicks from mobile devices. Cost per conversion: $5.59.',
+                metrics: [
+                    { label: 'Clicks', value: '4.59K' },
+                    { label: 'CTR', value: '14.43%' },
+                    { label: 'Conversions', value: '1.26K' },
+                    { label: 'Cost', value: '$7.05K' },
+                    { label: 'Budget', value: '$80/day' },
+                    { label: 'Opt Score', value: '100%' }
+                ],
+                links: [{ text: '📊 View Dashboard →', href: '#dashboard' }]
+            },
+            {
+                image: 'https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/hort-properties.jpg',
+                badge: 'Google Ads — Multi-Campaign',
+                badgeClass: 'badge-google-ads',
+                title: 'Hort Properties — Multi-Campaign',
+                desc: 'Managed 3 campaigns generating 99,500 impressions and 2,420 conversions. Achieved 6,550 clicks at $6,510 total spend. Average CPC of $0.99 with strong conversion rates.',
+                metrics: [
+                    { label: 'Impressions', value: '99.5K' },
+                    { label: 'Clicks', value: '6.55K' },
+                    { label: 'Conversions', value: '2.42K' },
+                    { label: 'Cost', value: '$6.51K' },
+                    { label: 'Avg CPC', value: '$0.99' },
+                    { label: 'Campaigns', value: '3' }
+                ],
+                links: [{ text: '📊 View Dashboard →', href: '#dashboard' }]
+            },
+            {
+                image: 'https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/emergency-dentist.jpg',
+                badge: 'Google Ads — Search',
+                badgeClass: 'badge-google-ads',
+                title: 'Emergency Dentist — Search Campaign',
+                desc: 'Long-running Search campaign (Aug 2023–Mar 2025) with 5,290 clicks and 652 conversions. 11.79% CTR with 90.9% optimization score on $81/day budget.',
+                metrics: [
+                    { label: 'Clicks', value: '5.29K' },
+                    { label: 'CTR', value: '11.79%' },
+                    { label: 'Conversions', value: '652' },
+                    { label: 'Cost', value: '$15.3K' },
+                    { label: 'Budget', value: '$81/day' },
+                    { label: 'Mobile', value: '86.8%' }
+                ],
+                links: [{ text: '📊 View Dashboard →', href: '#dashboard' }]
+            },
+            {
+                image: 'https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/katy-lakes-pmax.jpg',
+                badge: 'Google Ads — Performance Max',
+                badgeClass: 'badge-google-ads',
+                title: 'Katy Lakes Dentistry — Performance Max',
+                desc: 'Performance Max campaign delivering 11,000 clicks and 1,710 conversions from 119,000 impressions. 9.23% CTR with 100% optimization score. Targeting 5-mile radius around Katy, TX.',
+                metrics: [
+                    { label: 'Impressions', value: '119K' },
+                    { label: 'Clicks', value: '11K' },
+                    { label: 'CTR', value: '9.23%' },
+                    { label: 'Conversions', value: '1.71K' },
+                    { label: 'Budget', value: '$36/day' },
+                    { label: 'Opt Score', value: '100%' }
+                ],
+                links: [{ text: '📊 View Dashboard →', href: '#dashboard' }]
+            },
+            {
+                image: 'https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/dental-implants.jpg',
+                badge: 'Google Ads — Search',
+                badgeClass: 'badge-google-ads',
+                title: 'Dental Implants — Search Campaign',
+                desc: 'Premium Search campaign with exceptional 15.83% CTR — nearly 3x industry average. Generated 5,280 clicks at $11.6K cost. Device breakdown: Mobile 78.5% cost share, 86.8% click share.',
+                metrics: [
+                    { label: 'Clicks', value: '5.28K' },
+                    { label: 'CTR', value: '15.83%' },
+                    { label: 'Cost', value: '$11.6K' },
+                    { label: 'Budget', value: '$24/day' },
+                    { label: 'Mobile', value: '86.8%' },
+                    { label: 'Opt Score', value: '100%' }
+                ],
+                links: [{ text: '📊 View Dashboard →', href: '#dashboard' }]
+            },
+            {
+                image: 'https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/general-dentist-2.jpg',
+                badge: 'Google Ads — Search',
+                badgeClass: 'badge-google-ads',
+                title: 'General & Family Dentist — Search',
+                desc: 'Long-term Search campaign (Aug 2023–Mar 2025) with 8,160 clicks and 984 conversions. 9.64% CTR, $29.8K total spend. 83.3% mobile traffic share on $38/day budget.',
+                metrics: [
+                    { label: 'Clicks', value: '8.16K' },
+                    { label: 'CTR', value: '9.64%' },
+                    { label: 'Conversions', value: '984' },
+                    { label: 'Cost', value: '$29.8K' },
+                    { label: 'Budget', value: '$38/day' },
+                    { label: 'Mobile', value: '83.3%' }
+                ],
+                links: [{ text: '📊 View Dashboard →', href: '#dashboard' }]
+            },
+            {
+                image: 'https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/dental-implants-2.jpg',
+                badge: 'Google Ads — Search',
+                badgeClass: 'badge-google-ads',
+                title: 'Dental Implants — Extended Analytics',
+                desc: 'Additional campaign data showing 5,280 clicks, $27 conversion value, 15.83% CTR, and $11.6K cost. Device breakdown: Mobile 78.5% cost share, 86.8% click share.',
+                metrics: [
+                    { label: 'Clicks', value: '5.28K' },
+                    { label: 'CTR', value: '15.83%' },
+                    { label: 'Cost', value: '$11.6K' },
+                    { label: 'Conv Value', value: '$27' },
+                    { label: 'Mobile Cost', value: '78.5%' },
+                    { label: 'Mobile Click', value: '86.8%' }
+                ],
+                links: [{ text: '📊 View Dashboard →', href: '#dashboard' }]
+            },
+            {
+                image: 'https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/molen-tax.jpg',
+                badge: 'Google Ads — Search',
+                badgeClass: 'badge-google-ads',
+                title: 'Molen Tax — Search Campaign',
+                desc: 'Tax services Search campaign generating 411 clicks from 17,400 impressions. 31 conversions at $60.56 cost per conversion. 100% optimization score on $50/day budget.',
+                metrics: [
+                    { label: 'Impressions', value: '17.4K' },
+                    { label: 'Clicks', value: '411' },
+                    { label: 'Conversions', value: '31' },
+                    { label: 'Cost/Conv', value: '$60.56' },
+                    { label: 'Budget', value: '$50/day' },
+                    { label: 'Opt Score', value: '100%' }
+                ],
+                links: [{ text: '📊 View Dashboard →', href: '#dashboard' }]
+            },
+            {
+                image: 'https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/account-overview.jpg',
+                badge: 'Google Ads — Account Mgmt',
+                badgeClass: 'badge-google-ads',
+                title: 'Account-Level Management',
+                desc: 'Full account management delivering 17,100 clicks and 1,770 conversions across all campaigns. $1.74 average CPC with $16.89 cost per conversion. Managed: Oct 2024–Oct 2025.',
+                metrics: [
+                    { label: 'Clicks', value: '17.1K' },
+                    { label: 'Avg CPC', value: '$1.74' },
+                    { label: 'Conversions', value: '1.77K' },
+                    { label: 'Cost/Conv', value: '$16.89' },
+                    { label: 'Period', value: '1 Year' },
+                    { label: 'Status', value: 'Active' }
+                ],
+                links: [{ text: '📊 View Dashboard →', href: '#dashboard' }]
+            },
+            {
+                image: '',
+                badge: 'GitHub — Development',
+                badgeClass: 'badge-github',
+                title: 'Open Source & Development Projects',
+                desc: 'Active GitHub developer with 45+ repositories spanning full-stack web development, mobile apps, and creative projects. Top repositories include CakeCouchViralProject (3 stars), EMA John Simple e-commerce app, and Flutter Recipe Calculator.',
+                metrics: [
+                    { label: 'Repositories', value: '45+' },
+                    { label: 'Stars', value: '3' },
+                    { label: 'Top Lang', value: 'JavaScript' },
+                    { label: 'Frameworks', value: 'React/Node' },
+                    { label: 'Mobile', value: 'Flutter' },
+                    { label: 'Profiles', value: '2' }
+                ],
+                links: [
+                    { text: '🐙 github.com/StarsWarrior →', href: 'https://github.com/StarsWarrior' },
+                    { text: '🐙 github.com/shuvodigitalbard-stack →', href: 'https://github.com/shuvodigitalbard-stack' }
+                ]
+            },
+            {
+                image: '',
+                badge: 'LinkedIn — Professional',
+                badgeClass: 'badge-linkedin',
+                title: 'LinkedIn Professional Network',
+                desc: 'Active LinkedIn presence showcasing expertise in Google Ads, digital marketing, and full-stack development. Sharing insights on campaign optimization, PPC strategies, and growth marketing.',
+                metrics: [
+                    { label: 'Expertise', value: 'Google Ads' },
+                    { label: 'Focus', value: 'PPC/SEO' },
+                    { label: 'Skills', value: '10+' },
+                    { label: 'Posts', value: 'Active' },
+                    { label: 'Network', value: 'Growing' },
+                    { label: 'Open to', value: 'Work' }
+                ],
+                links: [
+                    { text: '💼 Connect on LinkedIn →', href: 'https://www.linkedin.com/in/wali-ullah-shuvo/' }
+                ]
+            }
+        ];
+
+        const lightboxOverlay = document.getElementById('projectLightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxBadge = document.getElementById('lightboxBadge');
+        const lightboxTitle = document.getElementById('lightboxTitle');
+        const lightboxDesc = document.getElementById('lightboxDesc');
+        const lightboxMetrics = document.getElementById('lightboxMetrics');
+        const lightboxLinks = document.getElementById('lightboxLinks');
+        const lightboxClose = document.getElementById('lightboxClose');
+
+        function openLightbox(index) {
+            const data = lightboxData[index];
+            if (!data) return;
+
+            if (data.image) {
+                lightboxImage.src = data.image;
+                lightboxImage.style.display = 'block';
+            } else {
+                lightboxImage.style.display = 'none';
+            }
+
+            lightboxBadge.textContent = data.badge;
+            lightboxBadge.className = 'project-type-badge ' + data.badgeClass;
+            lightboxTitle.textContent = data.title;
+            lightboxDesc.textContent = data.desc;
+
+            lightboxMetrics.innerHTML = data.metrics.map(function(m) {
+                return '<div class="lightbox-metric"><div class="label">' + m.label + '</div><div class="value">' + m.value + '</div></div>';
+            }).join('');
+
+            lightboxLinks.innerHTML = data.links.map(function(l) {
+                return '<a href="' + l.href + '" target="_blank">' + l.text + '</a>';
+            }).join('');
+
+            lightboxOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightboxOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Click on images
+        document.querySelectorAll('.clickable-image').forEach(function(el) {
+            el.style.cursor = 'pointer';
+            el.addEventListener('click', function() {
+                const idx = parseInt(el.dataset.lightbox);
+                openLightbox(idx);
+            });
+        });
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxOverlay.addEventListener('click', function(e) {
+            if (e.target === lightboxOverlay) closeLightbox();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && lightboxOverlay.classList.contains('active')) closeLightbox();
+        });
 
         // ===== DASHBOARD METRICS =====
         function animateValue(el, target, suffix, suffix2, duration) {
