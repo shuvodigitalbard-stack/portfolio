@@ -176,7 +176,10 @@
         .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1000px; margin: 0 auto; }
         .project-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: transform 0.3s, border-color 0.3s; }
         .project-card:hover { transform: translateY(-5px); border-color: var(--primary); }
-        .project-image { height: 160px; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+        .project-image { height: 160px; display: flex; align-items: center; justify-content: center; font-size: 3rem; overflow: hidden; position: relative; }
+        .project-image img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+        .project-image .emoji-fallback { position: absolute; }
+        .project-card:hover .project-image img { transform: scale(1.05); transition: transform 0.3s ease; }
         .project-info { padding: 1.5rem; }
         .project-info h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
         .project-info p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem; }
@@ -412,7 +415,9 @@
 
             <!-- Google Ads Project 1: Dental Service -->
             <div class="project-card fade-in">
-                <div class="project-image" style="background:linear-gradient(135deg,#6c63ff,#00d4aa);">&#128202;</div>
+                <div class="project-image" style="background:linear-gradient(135deg,#6c63ff,#00d4aa);">
+                    <img src="https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/dental-service-search.jpg" alt="Dental Service Search Campaign" loading="lazy">
+                </div>
                 <div class="project-info">
                     <h3>Dental Service — Search Campaign</h3>
                     <p>High-performing Search campaign with 14.43% CTR and 1.26K conversions. $80/day budget with 100% optimization score. 90.8% of clicks from mobile devices.</p>
@@ -423,7 +428,9 @@
 
             <!-- Google Ads Project 2: Hort Properties -->
             <div class="project-card fade-in">
-                <div class="project-image" style="background:linear-gradient(135deg,#00d4aa,#00b4d8);">&#127760;</div>
+                <div class="project-image" style="background:linear-gradient(135deg,#00d4aa,#00b4d8);">
+                    <img src="https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/hort-properties.jpg" alt="Hort Properties Multi-Campaign" loading="lazy">
+                </div>
                 <div class="project-info">
                     <h3>Hort Properties — Multi-Campaign</h3>
                     <p>Managed 3 campaigns generating 99.5K impressions and 2.42K conversions. Achieved 6.55K clicks at $6.51K total spend across all campaigns.</p>
@@ -434,7 +441,9 @@
 
             <!-- Google Ads Project 3: Emergency Dentist -->
             <div class="project-card fade-in">
-                <div class="project-image" style="background:linear-gradient(135deg,#ff6b6b,#ffa07a);">&#128673;</div>
+                <div class="project-image" style="background:linear-gradient(135deg,#ff6b6b,#ffa07a);">
+                    <img src="https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/emergency-dentist.jpg" alt="Emergency Dentist Search Campaign" loading="lazy">
+                </div>
                 <div class="project-info">
                     <h3>Emergency Dentist — Search Campaign</h3>
                     <p>Long-running Search campaign (Aug 2023–Mar 2025) with 5.29K clicks and 652 conversions. 11.79% CTR with 90.9% optimization score on $81/day budget.</p>
@@ -445,7 +454,9 @@
 
             <!-- Google Ads Project 4: Katy Lakes Dentistry P-Max -->
             <div class="project-card fade-in">
-                <div class="project-image" style="background:linear-gradient(135deg,#6c63ff,#ff6b6b);">&#128187;</div>
+                <div class="project-image" style="background:linear-gradient(135deg,#6c63ff,#ff6b6b);">
+                    <img src="https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/katy-lakes-pmax.jpg" alt="Katy Lakes Dentistry Performance Max" loading="lazy">
+                </div>
                 <div class="project-info">
                     <h3>Katy Lakes Dentistry — Performance Max</h3>
                     <p>Performance Max campaign delivering 11K clicks and 1.71K conversions from 119K impressions. 9.23% CTR with 100% optimization score. Targeting 5mi radius around Katy, TX.</p>
@@ -456,7 +467,9 @@
 
             <!-- Google Ads Project 5: Dental Implants -->
             <div class="project-card fade-in">
-                <div class="project-image" style="background:linear-gradient(135deg,#00d4aa,#6c63ff);">&#128737;</div>
+                <div class="project-image" style="background:linear-gradient(135deg,#00d4aa,#6c63ff);">
+                    <img src="https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/dental-implants.jpg" alt="Dental Implants Search Campaign" loading="lazy">
+                </div>
                 <div class="project-info">
                     <h3>Dental Implants — Search Campaign</h3>
                     <p>Premium Search campaign with exceptional 15.83% CTR. Generated 5.28K clicks at $11.6K cost. 86.8% of clicks from mobile. 100% optimization score on $24/day budget.</p>
@@ -467,7 +480,9 @@
 
             <!-- Google Ads Project 6: General & Family Dentist -->
             <div class="project-card fade-in">
-                <div class="project-image" style="background:linear-gradient(135deg,#ffa07a,#6c63ff);">&#128104;&#8205;&#128300;</div>
+                <div class="project-image" style="background:linear-gradient(135deg,#ffa07a,#6c63ff);">
+                    <img src="https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/general-dentist-2.jpg" alt="General & Family Dentist Search Campaign" loading="lazy">
+                </div>
                 <div class="project-info">
                     <h3>General & Family Dentist — Search</h3>
                     <p>Long-term Search campaign (Aug 2023–Mar 2025) with 8.16K clicks and 984 conversions. 9.64% CTR, $29.8K total spend. 83.3% mobile traffic share on $38/day budget.</p>
@@ -476,20 +491,24 @@
                 </div>
             </div>
 
-            <!-- Google Ads Project 7: Barky Lounge P-Max -->
+            <!-- Google Ads Project 7: Dental Implants Extended -->
             <div class="project-card fade-in">
-                <div class="project-image" style="background:linear-gradient(135deg,#ff6b6b,#00d4aa);">&#128054;</div>
+                <div class="project-image" style="background:linear-gradient(135deg,#ff6b6b,#00d4aa);">
+                    <img src="https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/dental-implants-2.jpg" alt="Dental Implants Campaign Extended View" loading="lazy">
+                </div>
                 <div class="project-info">
-                    <h3>Barky Lounge — P-Max Grooming</h3>
-                    <p>Performance Max campaign for pet grooming services. 465 clicks, 48 conversions at $1.06K cost. 100% optimization score with "Best" asset performance rating on $30/day budget.</p>
-                    <div class="project-tags"><span>Performance Max</span><span>465 Clicks</span><span>48 Conv</span><span>$1.06K Cost</span><span>100% Opt Score</span></div>
+                    <h3>Dental Implants — Extended View</h3>
+                    <p>Additional campaign data showing 5.28K clicks, $27 conversion value, 15.83% CTR, and $11.6K cost. Device breakdown: Mobile 78.5% cost share, 86.8% click share. 100% optimization score.</p>
+                    <div class="project-tags"><span>Search Ads</span><span>5.28K Clicks</span><span>15.83% CTR</span><span>$11.6K Cost</span><span>Mobile 86.8%</span></div>
                     <div class="project-links"><a href="#dashboard">&#128202; View Dashboard &#8594;</a></div>
                 </div>
             </div>
 
             <!-- Google Ads Project 8: Molen Tax -->
             <div class="project-card fade-in">
-                <div class="project-image" style="background:linear-gradient(135deg,#00b4d8,#6c63ff);">&#128176;</div>
+                <div class="project-image" style="background:linear-gradient(135deg,#00b4d8,#6c63ff);">
+                    <img src="https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/molen-tax.jpg" alt="Molen Tax Search Campaign" loading="lazy">
+                </div>
                 <div class="project-info">
                     <h3>Molen Tax — Search Campaign</h3>
                     <p>Tax services Search campaign generating 411 clicks from 17.4K impressions. 31 conversions at $60.56 cost per conversion. 100% optimization score on $50/day budget.</p>
@@ -500,7 +519,9 @@
 
             <!-- Google Ads Project 9: Account-Level Overview -->
             <div class="project-card fade-in">
-                <div class="project-image" style="background:linear-gradient(135deg,#6c63ff,#00ff41);">&#128200;</div>
+                <div class="project-image" style="background:linear-gradient(135deg,#6c63ff,#00ff41);">
+                    <img src="https://raw.githubusercontent.com/shuvodigitalbard-stack/portfolio/main/images/account-overview.jpg" alt="Account-Level Management Overview" loading="lazy">
+                </div>
                 <div class="project-info">
                     <h3>Account-Level Management</h3>
                     <p>Full account management delivering 17.1K clicks and 1.77K conversions. $1.74 average CPC with $16.89 cost per conversion across all managed campaigns (Oct 2024–Oct 2025).</p>
